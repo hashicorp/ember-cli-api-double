@@ -21,7 +21,7 @@
   "dependencies": {
     "pretender": "^2.0.0",
     "array-range": "^1.0.1",
-    "@johncowen/api-double": "^1.1.0",
+    "@johncowen/api-double": "^1.1.1",
     "js-yaml": "^3.11.0",
     "ember-cli-babel": "^6.6.0"
   },
