@@ -1,5 +1,5 @@
 import Pretender from 'pretender';
-import apiFactory from '@johncowen/api-double';
+import apiFactory from '@hashicorp/api-double';
 export default function(path, setCookies, typeToURL) {
   const createAPI = apiFactory(12345, path);
   let api = createAPI();
