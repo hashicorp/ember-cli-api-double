@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: '@johncowen/ember-cli-api-double',
+  name: '@hashicorp/ember-cli-api-double',
   treeFor: function() {
     let app;
 
@@ -48,9 +48,9 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     if (app.env === 'test') {
-      app.import('node_modules/@johncowen/api-double/index.js', {
+      app.import('node_modules/@hashicorp/api-double/index.js', {
         using: [
-          { transformation: 'cjs', as: '@johncowen/api-double' }
+          { transformation: 'cjs', as: '@hashicorp/api-double' }
         ]
       });
       app.import('node_modules/array-range/index.js', {
