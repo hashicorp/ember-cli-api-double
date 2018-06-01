@@ -1,16 +1,12 @@
 {
-  "name": "@johncowen/ember-cli-api-double",
+  "name": "@hashicorp/ember-cli-api-double",
   "version": "1.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "",
   "keywords": [
     "ember-addon"
   ],
   "license": "MIT",
   "author": "",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
   "repository": "",
   "scripts": {
     "build": "ember build",
@@ -21,7 +17,7 @@
   "dependencies": {
     "pretender": "^2.0.0",
     "array-range": "^1.0.1",
-    "@johncowen/api-double": "^1.1.1",
+    "@hashicorp/api-double": "^1.1.0",
     "js-yaml": "^3.11.0",
     "ember-cli-babel": "^6.6.0"
   },

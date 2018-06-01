@@ -20,7 +20,6 @@ export default function(path, setCookies, typeToURL) {
     };
     const response = {
       set: function() {
-        // console.log('setting');
       },
       send: function(response) {
         request.respond(200, { 'Content-Type': 'application/json' }, response);
