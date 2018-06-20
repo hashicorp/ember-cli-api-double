@@ -1,5 +1,7 @@
 import Pretender from 'pretender';
 import apiFactory from '@hashicorp/api-double';
+import deepAssign from 'merge-options';
+const assign = Object.assign;
 export default function(path, setCookies, typeToURL) {
   const createAPI = apiFactory(12345, path);
   let api = createAPI();
@@ -46,12 +48,16 @@ export default function(path, setCookies, typeToURL) {
               if (typeof value === 'object') {
                 if (value.constructor == Object) {
                   // res = { ...item, ...value };
-                  res = Object.assign(item, value);
+                  if(typeof item === 'string') {
+                    res = value.toString();
+                  } else {
+                    res = deepAssign(item, value);
+                  }
                 } else if (value.constructor == Array) {
                   // res = { ...item, ...value[i] };
                   if(value[i]) {
                     if(typeof value[i] === "object") {
-                      res = Object.assign(item, value[i]);
+                      res = deepAssign(item, value[i]);
                     } else {
                       res = value[i];
                     }

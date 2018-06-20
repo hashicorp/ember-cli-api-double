@@ -58,6 +58,11 @@ module.exports = {
           { transformation: 'cjs', as: 'array-range' }
         ]
       });
+      app.import('node_modules/merge-options/index.js', {
+        using: [
+          { transformation: 'cjs', as: 'merge-options' }
+        ]
+      });
       app.import('node_modules/pretender/pretender.js', {
         using: [
           { transformation: 'cjs', as: 'pretender' }

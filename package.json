@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/ember-cli-api-double",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "",
   "keywords": [
     "ember-addon"
@@ -22,13 +22,12 @@
     "ember-cli-babel": "^6.6.0"
   },
   "devDependencies": {
-    "ember-cli-yadda": "^0.4.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "ember-browserify": "^1.2.2",
-    "ember-cli-cjs-transform": "^1.2.0",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
+    "ember-browserify": "^1.2.2",
     "ember-cli": "~2.18.1",
+    "ember-cli-cjs-transform": "^1.2.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
     "ember-cli-htmlbars": "^2.0.1",
@@ -38,6 +37,7 @@
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^2.0.0",
+    "ember-cli-yadda": "^0.4.0",
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
@@ -45,7 +45,8 @@
     "ember-source": "~2.18.0",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^5.2.1",
-    "loader.js": "^4.2.3"
+    "loader.js": "^4.2.3",
+    "merge-options": "^1.0.1"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
