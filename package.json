@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/ember-cli-api-double",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "keywords": [
     "ember-addon"
@@ -19,7 +19,8 @@
     "array-range": "^1.0.1",
     "@hashicorp/api-double": "^1.1.0",
     "js-yaml": "^3.11.0",
-    "ember-cli-babel": "^6.6.0"
+    "ember-cli-babel": "^6.6.0",
+    "merge-options": "^1.0.1"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -45,8 +46,7 @@
     "ember-source": "~2.18.0",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^5.2.1",
-    "loader.js": "^4.2.3",
-    "merge-options": "^1.0.1"
+    "loader.js": "^4.2.3"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
