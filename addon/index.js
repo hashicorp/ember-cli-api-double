@@ -7,6 +7,7 @@ export default function(path, setCookies, typeToURL) {
   let api = createAPI();
   let cookies = {};
   let history = [];
+  let statuses = {};
   const server = new Pretender();
   server.handleRequest = request => {
     let url = request.url.split('?')[0];
@@ -21,11 +22,15 @@ export default function(path, setCookies, typeToURL) {
       cookies: cookies,
     };
     const response = {
+      _status: 200,
       set: function() {
       },
       send: function(response) {
-        request.respond(200, { 'Content-Type': 'application/json' }, response);
+        request.respond(statuses[url] || this._status, { 'Content-Type': 'application/json' }, response);
       },
+      status: function(status) {
+        this._status = status;
+      }
     };
     api.serve(req, response, function() {});
   };
@@ -35,8 +40,12 @@ export default function(path, setCookies, typeToURL) {
       reset: function() {
         api = createAPI();
         cookies = {};
+        statuses = {};
         history = [];
         this.history = history;
+      },
+      respondWithStatus: function(url, s) {
+        statuses[url] = s;
       },
       createList: function(type, num, value) {
         const url = typeToURL(type);
