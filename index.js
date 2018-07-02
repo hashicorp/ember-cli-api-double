@@ -1,7 +1,29 @@
 'use strict';
 
+const readdir = require('recursive-readdir-sync');
+const read = require('fs').readFileSync;
+const name = 'ember-cli-api-double';
 module.exports = {
   name: '@hashicorp/ember-cli-api-double',
+  contentFor: function(type, config) {
+      switch (type) {
+        case 'test-body':
+          if(config.environment === 'test' && (config[name] || {reader: 'fetch'}).reader === 'html') {
+            const cwd = process.cwd();
+            return config[name].endpoints.map(
+              function(api, i, arr) {
+                const absoluteAPI = `${cwd}/${api}`;
+                return readdir(absoluteAPI).map(
+                  function(item, i, arr) {
+                    const url = item.replace(cwd, '');
+                    return `<script type="text/javascript+template" data-url="${url}">${read(item)}</script>`;
+                  }
+                ).join('');
+              }
+            ).join('');
+          }
+      }
+  },
   treeFor: function() {
     let app;
 
@@ -51,6 +73,11 @@ module.exports = {
       app.import('node_modules/@hashicorp/api-double/index.js', {
         using: [
           { transformation: 'cjs', as: '@hashicorp/api-double' }
+        ]
+      });
+      app.import('node_modules/@hashicorp/api-double/reader/html.js', {
+        using: [
+          { transformation: 'cjs', as: '@hashicorp/api-double/reader/html' }
         ]
       });
       app.import('node_modules/array-range/index.js', {

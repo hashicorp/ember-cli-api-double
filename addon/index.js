@@ -1,9 +1,15 @@
 import Pretender from 'pretender';
 import apiFactory from '@hashicorp/api-double';
+import htmlReader from '@hashicorp/api-double/reader/html';
 import deepAssign from 'merge-options';
 const assign = Object.assign;
-export default function(path, setCookies, typeToURL) {
-  const createAPI = apiFactory(12345, path);
+export default function(path, setCookies, typeToURL, reader) {
+  let createAPI;
+  if(reader === 'html') {
+    createAPI = apiFactory(12345, path, htmlReader);
+  } else {
+    createAPI = apiFactory(12345, path);
+  }
   let api = createAPI();
   let cookies = {};
   let history = [];
