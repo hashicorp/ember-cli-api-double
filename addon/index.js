@@ -41,6 +41,7 @@ export default function(path, setCookies, typeToURL, reader) {
     api.serve(req, response, function() {});
   };
   return {
+    api: api,
     server: {
       history: history,
       reset: function() {
