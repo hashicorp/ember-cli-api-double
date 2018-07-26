@@ -16,23 +16,37 @@ export default function(path, setCookies, typeToURL, reader) {
   let statuses = {};
   const server = new Pretender();
   server.handleRequest = request => {
-    let url = request.url.split('?')[0];
+    const temp = request.url.split('?');
+    let url = temp[0];
+    let queryParams = {};
+    if(temp[1]) {
+      queryParams = temp[1].split('&').reduce(
+        function(prev, item) {
+          const temp = item.split('=');
+          prev[temp[0]] = temp[1];
+          return prev;
+        },
+        queryParams
+      );
+    }
     history.push(request);
     const req = {
       path: url,
       url: url,
-      query: request.queryParams || {},
+      query: queryParams,
       headers: request.requestHeaders,
       body: request.requestBody,
       method: request.method,
       cookies: cookies,
     };
+    let headers = { 'Content-Type': 'application/json' };
     const response = {
       _status: 200,
-      set: function() {
+      set: function(_headers) {
+        headers = Object.assign({}, headers, _headers);
       },
       send: function(response) {
-        request.respond(statuses[url] || this._status, { 'Content-Type': 'application/json' }, response);
+        request.respond(200, headers, response);
       },
       status: function(status) {
         this._status = status;
@@ -50,6 +64,9 @@ export default function(path, setCookies, typeToURL, reader) {
         statuses = {};
         history = [];
         this.history = history;
+      },
+      setCookie: function(name, value) {
+        cookies[name] = value;
       },
       respondWithStatus: function(url, s) {
         statuses[url] = s;
