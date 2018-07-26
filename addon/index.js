@@ -46,7 +46,7 @@ export default function(path, setCookies, typeToURL, reader) {
         headers = Object.assign({}, headers, _headers);
       },
       send: function(response) {
-        request.respond(200, headers, response);
+        request.respond(statuses[url] || this._status, headers, response);
       },
       status: function(status) {
         this._status = status;
