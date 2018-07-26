@@ -21,6 +21,7 @@ verify:
 ls-release:
 	@ARCHIVE=$$($(NPM) pack) && tar -tf $$ARCHIVE && rm $$ARCHIVE
 release: verify;
-	@echo "Releasing as '$$($(NPM) whoami)'"
-	#git push && git push --tags && npm publish . --access public
+	@echo "Releasing as '$$($(NPM) whoami)'" \
+	  && git push && git push --tags
+	#&& npm publish . --access public
 
