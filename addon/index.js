@@ -76,6 +76,9 @@ export default function(path, setCookies, typeToURL, reader) {
         cookies = setCookies(type, num, cookies);
         if (url && value) {
           api.mutate(function(response, config) {
+            if (typeof response.map !== 'function') {
+              return deepAssign(response, value)
+            }
             return response.map((item, i, arr) => {
               let res = value;
               if (typeof value === 'object') {
