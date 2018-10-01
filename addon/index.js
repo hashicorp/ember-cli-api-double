@@ -50,6 +50,7 @@ export default function(path, setCookies, typeToURL, reader) {
       },
       status: function(status) {
         this._status = status;
+        return this;
       }
     };
     api.serve(req, response, function() {});
