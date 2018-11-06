@@ -14,6 +14,7 @@ export default function(path, setCookies, typeToURL, reader) {
   let cookies = {};
   let history = [];
   let statuses = {};
+  let bodies = {};
   const server = new Pretender();
   server.handleRequest = request => {
     const temp = request.url.split('?');
@@ -46,7 +47,7 @@ export default function(path, setCookies, typeToURL, reader) {
         headers = Object.assign({}, headers, _headers);
       },
       send: function(response) {
-        request.respond(statuses[url] || this._status, headers, response);
+        request.respond(statuses[url] || this._status, headers, bodies[url] || response);
       },
       status: function(status) {
         this._status = status;
@@ -63,6 +64,7 @@ export default function(path, setCookies, typeToURL, reader) {
         api = createAPI();
         cookies = {};
         statuses = {};
+        bodies = {};
         history = [];
         this.history = history;
       },
@@ -71,6 +73,10 @@ export default function(path, setCookies, typeToURL, reader) {
       },
       respondWithStatus: function(url, s) {
         statuses[url] = s;
+      },
+      respondWith: function(url, response) {
+        statuses[url] = response.status || 200;
+        bodies[url] = response.body || '';
       },
       createList: function(type, num, value) {
         const url = typeToURL(type);
