@@ -21,7 +21,10 @@
     "merge-options": "^1.0.1",
     "pretender": "^2.0.0",
     "recursive-readdir-sync": "^1.0.6",
-    "ember-auto-import": "^1.4.0"
+    "ember-auto-import": "^1.4.0",
+    "broccoli-file-creator": "^2.1.1",
+    "broccoli-funnel": "^2.0.1",
+    "broccoli-merge-trees": "^3.0.2"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
