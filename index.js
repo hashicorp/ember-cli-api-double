@@ -9,21 +9,19 @@ module.exports = {
     const addon = config[name] || {enabled: false};
     if(addon.enabled) {
       switch (type) {
-        case 'test-body':
-          if(addon.reader === 'html') {
-            const cwd = process.cwd();
-            return addon.endpoints.map(
-              function(api, i, arr) {
-                const absoluteAPI = `${cwd}/${api}`;
-                return readdir(absoluteAPI).map(
-                  function(item, i, arr) {
-                    const url = item.replace(cwd, '');
-                    return `<script type="text/javascript+template" data-url="${url}">${read(item)}</script>`;
-                  }
-                ).join('');
-              }
-            ).join('');
-          }
+        case 'body':
+          const cwd = process.cwd();
+          return addon.endpoints.map(
+            function(api, i, arr) {
+              const absoluteAPI = `${cwd}/${api}`;
+              return readdir(absoluteAPI).map(
+                function(item, i, arr) {
+                  const url = item.replace(cwd, '');
+                  return `<script type="text/javascript+template" data-url="${url}">${read(item)}</script>`;
+                }
+              ).join('');
+            }
+          ).join('');
           break;
       }
     }

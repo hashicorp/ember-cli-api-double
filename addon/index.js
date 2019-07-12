@@ -3,7 +3,7 @@ import apiFactory from '@hashicorp/api-double';
 import htmlReader from '@hashicorp/api-double/reader/html';
 import deepAssign from 'merge-options';
 const assign = Object.assign;
-export default function(path, setCookies, typeToURL, reader) {
+export default function(path, setCookies, typeToURL, reader = 'html') {
   let createAPI;
   if(reader === 'html') {
     createAPI = apiFactory(12345, path, htmlReader);
