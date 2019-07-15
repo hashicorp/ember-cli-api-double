@@ -1,9 +1,6 @@
 'use strict';
 
-const path = require('path');
-const fs = require('fs');
 const mergeTrees = require('broccoli-merge-trees');
-const Funnel = require('broccoli-funnel');
 const writeFile = require('broccoli-file-creator');
 
 const readdir = require('recursive-readdir-sync');
@@ -15,9 +12,9 @@ module.exports = {
     const name = this.name;
     const addon = config[name] || {enabled: false};
     if(addon.enabled) {
+      const cwd = process.cwd();
       switch (type) {
         case 'body':
-          const cwd = process.cwd();
           return addon.endpoints.map(
             function(api, i, arr) {
               const absoluteAPI = `${cwd}/${api}`;
@@ -29,23 +26,17 @@ module.exports = {
               ).join('');
             }
           ).join('');
-          break;
       }
     }
   },
   treeForApp: function(appTree) {
     const config = this.app.project.config(this.app.env) || {};
     const addon = config[this.name] || {enabled: false};
+    // don't include anything if we aren't enabled
     if (!addon.enabled) {
       return;
     }
-    const dir = 'api-double';
-    const trees = [appTree];
-    const addonTree = new Funnel(path.join(this.app.project.root, `/${dir}`), {
-      destDir: dir
-    });
-    trees.push(addonTree);
-    return mergeTrees(trees);
+    return this._super.treeForApp.apply(this, arguments);
   },
   treeFor: function(name) {
     let app;
@@ -67,25 +58,28 @@ module.exports = {
     const config = app.project.config(app.env) || {};
     const addon = config[this.name] || {enabled: false};
 
+    // don't include anything if we aren't enabled
     if (!addon.enabled) {
       return;
     }
+    // unless we've explicitly set auto-import to false (in order to provide custom functions)
+    // include an initializer to initialize the shim http client
     if(addon['auto-import'] !== false && name === 'app') {
-      const dir = 'api-double';
-      if(fs.existsSync(path.join(this.app.project.root, `/${dir}/index.js`))) {
-        const tree = writeFile('instance-initializers/ember-cli-api-double.js', `
-            import api from '${config.modulePrefix}/${dir}';
-            export default {
-              name: 'ember-cli-api-double',
-              initialize: function() {}
-            };
-        `);
-        return mergeTrees([
-          tree,
-          this._super.treeFor.apply(this, arguments)
-        ]);
-      }
-
+      const temp = addon.endpoints[0].split('/');
+      temp.pop();
+      const path = temp.join('/');
+      const tree = writeFile('instance-initializers/ember-cli-api-double.js', `
+          import apiDouble from '@hashicorp/ember-cli-api-double';
+          apiDouble('${path}');
+          export default {
+            name: 'ember-cli-api-double',
+            initialize: function() {}
+          };
+      `);
+      return mergeTrees([
+        tree,
+        this._super.treeFor.apply(this, arguments)
+      ]);
     }
     return this._super.treeFor.apply(this, arguments);
   },

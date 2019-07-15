@@ -23,11 +23,9 @@
     "recursive-readdir-sync": "^1.0.6",
     "ember-auto-import": "^1.4.0",
     "broccoli-file-creator": "^2.1.1",
-    "broccoli-funnel": "^2.0.1",
     "broccoli-merge-trees": "^3.0.2"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "broccoli-asset-rev": "^2.4.5",
     "ember-cli": "~2.18.1",
     "ember-cli-dependency-checker": "^2.0.0",
@@ -39,7 +37,6 @@
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^2.0.0",
-    "ember-cli-yadda": "^0.5.0",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",

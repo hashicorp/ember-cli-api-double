@@ -2,8 +2,29 @@ import Pretender from 'pretender';
 import apiFactory from '@hashicorp/api-double';
 import htmlReader from '@hashicorp/api-double/reader/html';
 import deepAssign from 'merge-options';
-const assign = Object.assign;
-export default function(path, setCookies, typeToURL, reader = 'html') {
+
+const defaultGetCookiesFor = function(cookies = document.cookie) {
+  return function(type, value, obj = {}) {
+    return cookies.split(';').reduce(
+      function(prev, item) {
+        const temp = item.split('=');
+        prev[temp[0].trim()] = temp[1];
+        return prev;
+      },
+      {}
+    )
+  }
+}
+const defaultGetShouldMutateCallback = function() {
+  return function() {
+    return function(type) {
+      return function() {
+        return false;
+      }
+    }
+  }
+}
+export default function(path, getCookiesFor = defaultGetCookiesFor(), getShouldMutateCallback = defaultGetShouldMutateCallback(), reader = 'html') {
   let createAPI;
   if(reader === 'html') {
     createAPI = apiFactory(12345, path, htmlReader);
@@ -38,7 +59,7 @@ export default function(path, setCookies, typeToURL, reader = 'html') {
       headers: request.requestHeaders,
       body: request.requestBody,
       method: request.method,
-      cookies: cookies,
+      cookies: Object.assign(cookies, getCookiesFor('*'))
     };
     let headers = { 'Content-Type': 'application/json' };
     const response = {
@@ -78,38 +99,45 @@ export default function(path, setCookies, typeToURL, reader = 'html') {
         statuses[url] = response.status || 200;
         bodies[url] = response.body || '';
       },
+      // keep mirage-like interface
       createList: function(type, num, value) {
-        const url = typeToURL(type);
-        cookies = setCookies(type, num, cookies);
-        if (url && value) {
-          api.mutate(function(response, config) {
-            if (typeof response.map !== 'function') {
-              return deepAssign(response, value)
-            }
-            return response.map((item, i, arr) => {
-              let res = value;
-              if (typeof value === 'object') {
-                if (value.constructor == Object) {
-                  // res = { ...item, ...value };
-                  if(typeof item === 'string') {
-                    res = value.toString();
-                  } else {
-                    res = deepAssign(item, value);
-                  }
-                } else if (value.constructor == Array) {
-                  // res = { ...item, ...value[i] };
-                  if(value[i]) {
-                    if(typeof value[i] === "object") {
-                      res = deepAssign(item, value[i]);
+        cookies = Object.assign(
+          cookies,
+          getCookiesFor(type, num)
+        );
+
+        if (typeof value !== 'undefined') {
+          api.mutate(
+            function(response, config) {
+              if (typeof response.map !== 'function') {
+                return deepAssign(response, value)
+              }
+              return response.map((item, i, arr) => {
+                let res = value;
+                if (typeof value === 'object') {
+                  if (value.constructor == Object) {
+                    // res = { ...item, ...value };
+                    if(typeof item === 'string') {
+                      res = value.toString();
                     } else {
-                      res = value[i];
+                      res = deepAssign(item, value);
+                    }
+                  } else if (value.constructor == Array) {
+                    // res = { ...item, ...value[i] };
+                    if(value[i]) {
+                      if(typeof value[i] === "object") {
+                        res = deepAssign(item, value[i]);
+                      } else {
+                        res = value[i];
+                      }
                     }
                   }
                 }
-              }
-              return res;
-            });
-          }, url);
+                return res;
+              });
+            },
+            getShouldMutateCallback(type)
+          );
         }
       },
     },
