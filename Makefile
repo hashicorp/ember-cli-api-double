@@ -1,5 +1,5 @@
 # release helpers
-.PHONY: major minor patch release ls-release verify
+.PHONY: major minor patch release verify docs
 NPM=npm
 major:
 minor:
@@ -14,14 +14,17 @@ verify:
 		TAG=$$(git describe --tags --dirty 2> /dev/null || echo '-') \
 		&& if [ "$$VERSION" = "$$TAG" ]; \
 				then echo "Able to release $$PACKAGE"; \
-				else echo "Unable to release (package: $$VERSION != git: $$TAG)"; \
+				else echo "Unable to release (package: $$VERSION != git: $$TAG)" && exit 1; \
 			fi \
 		&& echo $$PACKAGE \
-		&& $(MAKE) ls-release
-ls-release:
-	@ARCHIVE=$$($(NPM) pack) && tar -tf $$ARCHIVE && rm $$ARCHIVE
+		&& $(NPM) pack --dry-run
 release: verify;
 	@echo "Releasing as '$$($(NPM) whoami)'" \
 	  && git push && git push --tags
 	#&& npm publish . --access public
+
+# docs:
+# 	npm run docs
+
+
 
