@@ -15,17 +15,20 @@ module.exports = {
       const cwd = process.cwd();
       switch (type) {
         case 'body':
-          return addon.endpoints.map(
-            function(api, i, arr) {
+          const templates = [];
+          Object.keys(addon.endpoints).forEach(
+            function(key) {
+              const api = `${addon.endpoints[key]}`;
               const absoluteAPI = `${cwd}/${api}`;
-              return readdir(absoluteAPI).map(
+              readdir(absoluteAPI).map(
                 function(item, i, arr) {
                   const url = item.replace(cwd, '');
-                  return `<script type="text/javascript+template" data-url="${url}">${read(item)}</script>`;
+                  templates.push(`<script type="text/javascript+template" data-url="${url}">${read(item)}</script>`);
                 }
-              ).join('');
+              );
             }
-          ).join('');
+          );
+          return templates.join('');
       }
     }
   },
@@ -65,12 +68,9 @@ module.exports = {
     // unless we've explicitly set auto-import to false (in order to provide custom functions)
     // include an initializer to initialize the shim http client
     if(addon['auto-import'] !== false && name === 'app') {
-      const temp = addon.endpoints[0].split('/');
-      temp.pop();
-      const path = temp.join('/');
       const tree = writeFile('instance-initializers/ember-cli-api-double.js', `
           import apiDouble from '@hashicorp/ember-cli-api-double';
-          apiDouble('${path}');
+          apiDouble('${JSON.stringify(addon)}');
           export default {
             name: 'ember-cli-api-double',
             initialize: function() {}
