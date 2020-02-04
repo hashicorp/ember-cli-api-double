@@ -7,7 +7,7 @@
   ],
   "license": "MPL-2.0",
   "author": "",
-  "repository": "",
+  "repository": "https://github.com/hashicorp/ember-cli-api-double",
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
