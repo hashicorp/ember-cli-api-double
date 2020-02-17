@@ -25,6 +25,9 @@ const defaultGetShouldMutateCallback = function() {
   }
 }
 export default function(config = {}, getCookiesFor = defaultGetCookiesFor(), getShouldMutateCallback = defaultGetShouldMutateCallback()) {
+  if(typeof config === 'string') {
+    config = JSON.parse(config);
+  }
   const key = Object.keys(config.endpoints)[0];
   const path = config.endpoints[key].replace(key, '');
   const salt = typeof config.salt === 'undefined' ? 12345 : config.salt;
