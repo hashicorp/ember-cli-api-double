@@ -70,7 +70,7 @@ module.exports = {
     if(addon['auto-import'] !== false && name === 'app') {
       const tree = writeFile('instance-initializers/ember-cli-api-double.js', `
           import apiDouble from '@hashicorp/ember-cli-api-double';
-          apiDouble('${JSON.stringify(addon)}');
+          apiDouble(JSON.parse('${JSON.stringify(addon)}'));
           export default {
             name: 'ember-cli-api-double',
             initialize: function() {}
