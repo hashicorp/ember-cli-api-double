@@ -95,13 +95,22 @@ export default function(config = {}, getCookiesFor = defaultGetCookiesFor(), get
     api: api,
     server: {
       history: history,
-      reset: function() {
-        api = createAPI();
-        cookies = {};
-        statuses = {};
-        bodies = {};
+      clearHistory: function() {
         history = [];
         this.history = history;
+      },
+      clearResponses: function() {
+        statuses = {};
+        bodies = {};
+      },
+      clearCookies: function() {
+        cookies = {};
+      },
+      reset: function() {
+        api = createAPI();
+        this.clearCookies();
+        this.clearResponses();
+        this.clearHistory();
       },
       setCookie: function(name, value) {
         cookies[name] = value;
