@@ -133,7 +133,12 @@ export default function(config = {}, getCookiesFor = defaultGetCookiesFor(), get
           api.mutate(
             function(response, config) {
               if (typeof response.map !== 'function') {
-                return deepAssign(response, value)
+                try {
+                  return deepAssign(response, value)
+                } catch(e) {
+                  // unable to merge the objects
+                  return response;
+                }
               }
               return response.map((item, i, arr) => {
                 let res = value;
