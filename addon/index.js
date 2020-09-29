@@ -57,7 +57,7 @@ export default function(config = {}, getCookiesFor = defaultGetCookiesFor(), get
         queryParams = temp[1].split('&').reduce(
           function(prev, item) {
             const temp = item.split('=');
-            prev[temp[0]] = temp[1];
+            prev[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
             return prev;
           },
           queryParams
