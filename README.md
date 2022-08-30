@@ -1,4 +1,4 @@
-# ember-cli-api-double
+# @hashicorp/ember-cli-api-double
 
 An ember-cli wrapper around [@hashicorp/api-double](https://github.com/hashicorp/api-double/)
 
@@ -11,4 +11,3 @@ As well as being able to use `api-double` as a simple HTTP development server to
 - The wrapped module itself [@hashicorp/api-double](https://github.com/hashicorp/api-double/) for more details.
 - An example of a simple api double [@hashicorp/consul-api-double](https://github.com/hashicorp/consul-api-double/)
 - Usage within the [Consul UI](https://github.com/hashicorp/consul/tree/master/ui-v2)
-
