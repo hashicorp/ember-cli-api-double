@@ -68,6 +68,12 @@
   "engines": {
     "node": "14.* || >= 16"
   },
+  "files": [
+    "addon/*",
+    "app/!(.gitkeep)",
+    "config/!(ember-try.js)",
+    "index.js"
+  ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
   }
