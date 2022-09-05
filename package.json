@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/ember-cli-api-double",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "description": "An ember-cli wrapper around @hashicorp/api-double",
   "keywords": [
     "ember-addon"
