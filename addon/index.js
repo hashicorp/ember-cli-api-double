@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Pretender from 'pretender';
 import apiFactory from '@hashicorp/api-double';
 import htmlReader from '@hashicorp/api-double/reader/html';
