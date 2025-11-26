@@ -76,5 +76,9 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "overrides": {
+    "braces": "^3.0.3",
+    "ansi-html": "^0.0.8"
   }
 }
