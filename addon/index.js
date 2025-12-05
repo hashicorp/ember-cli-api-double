@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2018, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Pretender from 'pretender';
 import apiFactory from '@hashicorp/api-double';
 import htmlReader from '@hashicorp/api-double/reader/html';
