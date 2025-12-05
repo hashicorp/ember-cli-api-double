@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2018, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 'use strict';
 
 const getChannelURL = require('ember-source-channel-url');
