@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2018, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Application from 'dummy/app';
 import config from 'dummy/config/environment';
 import * as QUnit from 'qunit';

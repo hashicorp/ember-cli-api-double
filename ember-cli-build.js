@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2018, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');

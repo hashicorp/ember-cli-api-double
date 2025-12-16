@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2018, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import EmberRouter from '@ember/routing/router';
 import config from 'dummy/config/environment';
 
