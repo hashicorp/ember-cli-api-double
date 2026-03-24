@@ -80,6 +80,8 @@
   "overrides": {
     "braces": "^3.0.3",
     "ansi-html": "^0.0.8",
-    "lodash": "^4.17.23"
+    "lodash": "^4.17.23",
+    "ajv": ">=8.18.0",
+    "serialize-javascript": ">=7.0.3"
   }
 }
