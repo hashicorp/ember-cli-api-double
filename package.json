@@ -79,6 +79,7 @@
   },
   "overrides": {
     "braces": "^3.0.3",
-    "ansi-html": "^0.0.8"
+    "ansi-html": "^0.0.8",
+    "lodash": "^4.17.23"
   }
 }
