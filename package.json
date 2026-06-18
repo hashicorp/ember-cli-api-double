@@ -82,6 +82,7 @@
     "ansi-html": "^0.0.8",
     "lodash": "^4.17.23",
     "ajv": ">=8.18.0",
+    "js-yaml": "^4.2.0",
     "serialize-javascript": ">=7.0.3",
     "uuid": "^14.0.0",
     "tmp": "^0.2.5",
