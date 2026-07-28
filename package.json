@@ -83,6 +83,7 @@
     "lodash": "^4.17.23",
     "ajv": ">=8.18.0",
     "js-yaml": "^4.2.0",
+    "postcss": ">=8.5.18",
     "serialize-javascript": ">=7.0.3",
     "uuid": "^14.0.0",
     "tmp": "^0.2.5",
